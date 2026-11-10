@@ -1,0 +1,45 @@
+appId: com.anonymous.cryptoalert
+name: "Fluxo 02 - Conversao Reativa de Criptomoedas e Moedas Fiduciarias"
+---
+- launchApp:
+    clearState: true
+
+- extendedWaitUntil:
+    visible: "Cryptocurrencies"
+    timeout: 20000
+
+# Abre a aba Convert
+- tapOn: "Convert"
+- assertVisible: "Convert Crypto"
+- assertVisible: "Enter an amount"
+
+# Digita a quantidade no TextInput com placeholder "0.00"
+- tapOn: "0.00"
+- inputText: "2"
+- hideKeyboard
+
+# Valida que a conversao para USD aconteceu reativamente (sem botao Convert)
+- assertNotVisible: "Enter an amount"
+- assertVisible: "Converted Amount"
+- assertVisible:
+    text: "\\$.*"
+
+# Abre o modal de Cryptocurrency (SelectField fechado exibe "Bitcoin (BTC)")
+- tapOn: "Bitcoin (BTC)"
+- assertVisible: "Cryptocurrency"
+# Dentro do Modal aberto, o titulo e o subtitulo sao renderizados em Text separados ("Ethereum" e "ETH")
+- tapOn: "Ethereum"
+- assertVisible: "Ethereum (ETH)"
+
+# Abre o modal de Fiat Currency (SelectField fechado exibe "USD ($)")
+- tapOn: "USD ($)"
+- assertVisible: "Fiat Currency"
+# Seleciona Real Brasileiro (BRL)
+- tapOn: "BRL"
+- assertVisible: "BRL (R$)"
+
+# Valida o resultado convertido formatado em Reais (R$)
+- assertVisible:
+    text: "R\\$.*"
+
+- takeScreenshot: "evidencia_02_conversao_eth_brl"
