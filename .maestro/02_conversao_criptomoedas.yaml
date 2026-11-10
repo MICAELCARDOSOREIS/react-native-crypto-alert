@@ -9,7 +9,7 @@ name: "Fluxo 02 - Conversao Reativa de Criptomoedas e Moedas Fiduciarias"
     timeout: 20000
 
 # Abre a aba Convert
-- tapOn: "Convert"
+- tapOn: ".*Convert"
 - assertVisible: "Convert Crypto"
 - assertVisible: "Enter an amount"
 
@@ -21,25 +21,23 @@ name: "Fluxo 02 - Conversao Reativa de Criptomoedas e Moedas Fiduciarias"
 # Valida que a conversao para USD aconteceu reativamente (sem botao Convert)
 - assertNotVisible: "Enter an amount"
 - assertVisible: "Converted Amount"
-- assertVisible:
-    text: "\\$.*"
+- assertVisible: "\\$.*"
 
-# Abre o modal de Cryptocurrency (SelectField fechado exibe "Bitcoin (BTC)")
-- tapOn: "Bitcoin (BTC)"
+# Abre o modal de Cryptocurrency (SelectField combina displayLabel + icone chevron)
+- tapOn: ".*Bitcoin \\(BTC\\).*"
 - assertVisible: "Cryptocurrency"
-# Dentro do Modal aberto, o titulo e o subtitulo sao renderizados em Text separados ("Ethereum" e "ETH")
-- tapOn: "Ethereum"
-- assertVisible: "Ethereum (ETH)"
+# Seleciona Ethereum na lista do Modal
+- tapOn: ".*Ethereum.*"
+- assertVisible: ".*Ethereum \\(ETH\\).*"
 
-# Abre o modal de Fiat Currency (SelectField fechado exibe "USD ($)")
-- tapOn: "USD ($)"
+# Abre o modal de Fiat Currency
+- tapOn: ".*USD \\(\\$\\).*"
 - assertVisible: "Fiat Currency"
 # Seleciona Real Brasileiro (BRL)
-- tapOn: "BRL"
-- assertVisible: "BRL (R$)"
+- tapOn: ".*BRL.*"
+- assertVisible: ".*BRL \\(R\\$\\).*"
 
 # Valida o resultado convertido formatado em Reais (R$)
-- assertVisible:
-    text: "R\\$.*"
+- assertVisible: "R\\$.*"
 
 - takeScreenshot: "evidencia_02_conversao_eth_brl"

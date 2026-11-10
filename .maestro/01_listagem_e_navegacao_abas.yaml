@@ -9,7 +9,7 @@ name: "Fluxo 01 - Listagem de Criptomoedas e Navegacao entre Abas"
     visible: "Cryptocurrencies"
     timeout: 20000
 
-# Se a API retornar ou usar os dados carregados, valida as criptomoedas principais na lista
+# Valida as criptomoedas principais carregadas na lista
 - extendedWaitUntil:
     visible: "Bitcoin"
     timeout: 15000
@@ -20,25 +20,25 @@ name: "Fluxo 01 - Listagem de Criptomoedas e Navegacao entre Abas"
 # Captura evidencia da listagem inicial
 - takeScreenshot: "evidencia_01_listagem_inicial"
 
-# Navega para a aba Convert e valida os elementos reais da tela
-- tapOn: "Convert"
+# Navega para a aba Convert (no Android o Tab combina o icone Ionicons + rotulo em accessibilityText)
+- tapOn: ".*Convert"
 - assertVisible: "Convert Crypto"
 - assertVisible: "Amount"
 - assertVisible: "Cryptocurrency"
-- assertVisible: "Bitcoin (BTC)"
+- assertVisible: ".*Bitcoin \\(BTC\\).*"
 - assertVisible: "Fiat Currency"
-- assertVisible: "USD ($)"
+- assertVisible: ".*USD \\(\\$\\).*"
 - assertVisible: "Converted Amount"
 - assertVisible: "Enter an amount"
 
 # Navega para a aba Alerts e valida o estado vazio inicial
-- tapOn: "Alerts"
+- tapOn: ".*Alerts"
 - assertVisible: "Price Alerts"
-- assertVisible: "New Alert"
+- assertVisible: ".*New Alert.*"
 - assertVisible: "No alerts yet"
-- assertVisible: "Create Alert"
+- assertVisible: ".*Create Alert.*"
 
 # Retorna para a aba List e confirma que a listagem continua visivel
-- tapOn: "List"
+- tapOn: ".*List"
 - assertVisible: "Cryptocurrencies"
 - assertVisible: "Bitcoin"

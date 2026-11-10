@@ -9,32 +9,32 @@ name: "Fluxo 03 - Criacao de Alertas e Validacao do Badge na Lista"
     timeout: 20000
 
 # Navega ate a aba Alerts
-- tapOn: "Alerts"
+- tapOn: ".*Alerts"
 - assertVisible: "Price Alerts"
 - assertVisible: "No alerts yet"
 
 # Abre a tela Create Alert pelo botao do EmptyState
 - tapOn: "Create Alert"
 - assertVisible: "Create Alert"
-- assertVisible: "Select cryptocurrency"
+- assertVisible: ".*Select cryptocurrency.*"
 - assertVisible: "Target Price (USD)"
 - assertVisible: "Alert Condition"
-- assertVisible: "Above target price"
-- assertVisible: "Below target price"
-- assertVisible: "Save Alert"
+- assertVisible: ".*Above target price.*"
+- assertVisible: ".*Below target price.*"
+- assertVisible: ".*Save Alert.*"
 
 # Testa o botao de voltar no cabecalho (accessibilityLabel="Go back")
 - tapOn: "Go back"
 - assertVisible: "Price Alerts"
 
-# Abre novamente pelo botao superior "New Alert"
-- tapOn: "New Alert"
+# Abre novamente pelo botao superior "New Alert" (que possui leftIcon Ionicons add)
+- tapOn: ".*New Alert.*"
 - assertVisible: "Create Alert"
 
 # Seleciona a criptomoeda Bitcoin no modal SelectField
-- tapOn: "Select cryptocurrency"
-- tapOn: "Bitcoin"
-- assertVisible: "Bitcoin (BTC)"
+- tapOn: ".*Select cryptocurrency.*"
+- tapOn: ".*Bitcoin.*"
+- assertVisible: ".*Bitcoin \\(BTC\\).*"
 
 # Preenche o preco alvo de 75000 USD
 - tapOn: "0.00"
@@ -42,25 +42,25 @@ name: "Fluxo 03 - Criacao de Alertas e Validacao do Badge na Lista"
 - hideKeyboard
 
 # Garante que a condicao "Above target price" esta selecionada e salva
-- tapOn: "Above target price"
-- tapOn: "Save Alert"
+- tapOn: ".*Above target price.*"
+- tapOn: ".*Save Alert.*"
 
 # Verifica que voltou para Price Alerts com o card do alerta criado
 - assertVisible: "Price Alerts"
 - assertVisible: "Bitcoin"
-- assertVisible: "Alert when price goes above"
-- assertVisible: "$75,000.00"
+- assertVisible: ".*Alert when price goes.*above.*"
+- assertVisible: "\\$75,000.00"
 
 - takeScreenshot: "evidencia_03_alerta_criado_lista_alertas"
 
-# Volta para a aba List e verifica se o badge "1 alert" aparece no card do Bitcoin
-- tapOn: "List"
+# Volta para a aba List e verifica se o badge de alerta aparece no card do Bitcoin
+- tapOn: ".*List"
 - assertVisible: "Cryptocurrencies"
-- assertVisible: "1 alert"
+- assertVisible: "Toggle alerts for this cryptocurrency"
 
-# Toca no badge para expandir os detalhes do alerta diretamente no CryptoCard
-- tapOn: "1 alert"
+# Toca no badge (accessibilityLabel="Toggle alerts for this cryptocurrency") para expandir os detalhes
+- tapOn: "Toggle alerts for this cryptocurrency"
 - assertVisible: "Above target"
-- assertVisible: "$75,000.00"
+- assertVisible: "\\$75,000.00"
 
 - takeScreenshot: "evidencia_03_badge_expandido_na_home"
