@@ -1,0 +1,46 @@
+appId: com.anonymous.cryptoalert
+name: "Fluxo 04 - Criacao com Condicao Below, Exclusao de Alerta e Retorno ao Estado Vazio"
+---
+- launchApp:
+    clearState: true
+
+- extendedWaitUntil:
+    visible: "Cryptocurrencies"
+    timeout: 20000
+
+# Vai para a aba Alerts e inicia a criacao de um novo alerta
+- tapOn: "Alerts"
+- assertVisible: "No alerts yet"
+- tapOn: "New Alert"
+- assertVisible: "Create Alert"
+
+# Seleciona Ethereum no modal SelectField
+- tapOn: "Select cryptocurrency"
+- tapOn: "Ethereum"
+- assertVisible: "Ethereum (ETH)"
+
+# Define preco alvo de 3000 USD com a condicao "Below target price"
+- tapOn: "0.00"
+- inputText: "3000"
+- hideKeyboard
+- tapOn: "Below target price"
+- tapOn: "Save Alert"
+
+# Valida o alerta criado na tela Price Alerts
+- assertVisible: "Price Alerts"
+- assertVisible: "Ethereum"
+- assertVisible: "Alert when price goes below"
+- assertVisible: "$3,000.00"
+- assertNotVisible: "No alerts yet"
+
+- takeScreenshot: "evidencia_04_antes_de_excluir_alerta"
+
+# Exclui o alerta usando o accessibilityLabel real do botao de lixeira ("Delete alert")
+- tapOn: "Delete alert"
+
+# Valida que o alerta foi removido e o EmptyState voltou a aparecer
+- assertVisible: "No alerts yet"
+- assertVisible: "Create Alert"
+- assertNotVisible: "$3,000.00"
+
+- takeScreenshot: "evidencia_04_apos_excluir_estado_vazio"
